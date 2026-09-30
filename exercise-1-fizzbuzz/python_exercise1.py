@@ -1,0 +1,72 @@
+import sys
+
+# Base task
+
+for i in range(1, 101):
+    line = ""
+    if  i % 3 == 0:
+        line += "Fizz"
+    if i % 5 == 0:
+        line += "Buzz"
+    if line:
+        print(line)
+    else:
+        print(i)
+
+
+
+# Extension 1: add Fang and Bang
+
+for i in range(1, 101):
+    line = ""
+    if  i % 3 == 0:
+        line += "Fizz"
+    if i % 5 == 0:
+        line += "Buzz"
+    if i % 7 == 0:
+        line += "Fang"
+    if i % 11 == 0:
+        line += "Bang"
+    if line:
+        print(line)
+    else:
+        print(i)
+
+
+
+# Extension 2: allow the user to define the factor and word,
+# at the moment only 1 word
+
+%%writefile fizz_mod.py
+
+import sys
+
+def print_selection(dict, max):
+    for i in range(1,max+1):
+        line=""
+        for key, value in dict.items():
+            if i % key == 0:
+                line += value
+        if line:
+            print(line)
+        else:
+            print(i)
+
+
+def main(num, word, max):
+    num = int(num)
+    max = int(max)
+    dictionary = {3: "Fizz", 5: "Buzz", 7: "Fang", 11: "Bang"}
+    user_rule = {num: word}
+    dictionary.update(user_rule)
+    print_selection(dictionary, max)
+
+if __name__ == '__main__':
+    num = sys.argv[1]
+    word = sys.argv[2]
+    max = sys.argv[3]
+    main(num, word, max)
+
+
+# Example of run line for input
+%run fizz_mod.py 13 casa 77
