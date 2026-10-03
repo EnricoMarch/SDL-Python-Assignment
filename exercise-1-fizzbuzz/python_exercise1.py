@@ -37,11 +37,11 @@ for i in range(1, 101):
 # Extension 2: allow the user to define the factor and word,
 # at the moment only 1 word
 
-%%writefile fizz_mod.py
+# %%writefile fizz_mod.py This line is to add if running 
+# on Jupyter Notebooks
 
-import sys
 
-def print_selection(dict, max):
+def fizz_buzz(dict, max):
     for i in range(1,max+1):
         line=""
         for key, value in dict.items():
@@ -59,7 +59,7 @@ def main(num, word, max):
     dictionary = {3: "Fizz", 5: "Buzz", 7: "Fang", 11: "Bang"}
     user_rule = {num: word}
     dictionary.update(user_rule)
-    print_selection(dictionary, max)
+    fizz_buzz(dictionary, max)
 
 if __name__ == '__main__':
     num = sys.argv[1]
@@ -68,5 +68,5 @@ if __name__ == '__main__':
     main(num, word, max)
 
 
-# Example of run line for input
-%run fizz_mod.py 13 casa 77
+# Example of command line for input
+# %run fizz_mod.py 13 casa 77
