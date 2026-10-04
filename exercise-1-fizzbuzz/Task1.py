@@ -56,12 +56,21 @@ def fizz_buzz(dict, max):
 def main(num, word, max):
     num = int(num)
     max = int(max)
+    # Base game rules
     dictionary = {3: "Fizz", 5: "Buzz", 7: "Fang", 11: "Bang"}
+    # Build dictionary item with the user input
     user_rule = {num: word}
+    # Update the dictionary
     dictionary.update(user_rule)
     fizz_buzz(dictionary, max)
 
 if __name__ == '__main__':
+    """
+    The user input are, in order
+    num: the value for the new rule
+    word: the corresponding new word for the value
+    max  the maximum number for the itaration of the loop
+    """
     num = sys.argv[1]
     word = sys.argv[2]
     max = sys.argv[3]
