@@ -8,9 +8,8 @@ from functions_ajuste import *
 from functions_own import *
 import sys 
 
-# Change the file directory to the one 
-# containing the 'spectrum.txt' file
-file = 'D:\Masters\Semester 1\Space Detectors Lab\Github\SDL-Python-Assignment\exercise-3-spectrum\spectrum.txt'
+# File needs to be in same repository as the script
+file = 'spectrum.txt'
 observ = pd.read_csv(file,
         skiprows=27, # To skip the first 27 lines
         sep=','
