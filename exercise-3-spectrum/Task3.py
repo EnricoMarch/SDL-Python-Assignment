@@ -31,11 +31,11 @@ plt.legend()
 
 c = 2.9979e10  # cm/s
  
-lam_um = wave       #Eje en micras NO MODIFICO 
+lam_um = wave
 flambda = flux
 
-#Configuration for the continuum
-#Continuum regions
+# Configuration for the continuum
+# Continuum regions
 wl1, wl2 = 6670, 6680
 wl3, wl4 = 6698, 6705
 
@@ -44,7 +44,7 @@ flux_nocont, lam_cont, flux_cont, poly_cont = ajuste_continuo (wl1, wl2, wl3, wl
 resid_cont = flux_cont - poly_cont(lam_cont)
 noise = np.std(resid_cont)
 
-#GRAPHICS
+# GRAPHICS
 
 plt.figure(figsize=(8,5))
 plt.title('UVES Spectrum (Units: Å and ADU)')
@@ -58,7 +58,7 @@ plt.legend()
 plt.xlim(6660, 6720)
 plt.show()
 
-#Selection of a specific region of the spectrum
+# Selection of a specific region of the spectrum
 w1 = 6670.0
 w2 = 6720.0
 mask = (wave_ang > w1) & (wave_ang < w2) 
@@ -72,10 +72,10 @@ flux_reg_nocont = flux_reg - cont_reg_model
 flux_reg_nocont=flux_reg - cont_reg_model
 
 
-#It adjusts the rest value
+# It adjusts the rest value
 wave_rest = 6685.66  # [Å]
 
-#Estimates the initial width for the gaussian in velocity (~400 km/s)
+# Estimates the initial width for the gaussian in velocity (~400 km/s)
 stddev_n_line = (400.0 / 2.9979e5) * wave_rest / 2.35  
 
 # Without normalisation because we are working in ADU
@@ -122,7 +122,7 @@ line_n_fit = models.Gaussian1D(
 )
 line_n_fit_err = assign_errors(curfit_err)
 
-# PHYSICAL PARAMETERS CALCULO (FWHM, VELOCITY AND FLUX)
+# PHYSICAL PARAMETERS CALCULATION (FWHM, VELOCITY AND FLUX)
 # FWHM in velocity(km/s)
 FWHMr_line_n, FWHMr_line_n_err = calc_gaussian_fwhm(
     line_n_fit, velocity=True, Errpars=line_n_fit_err
@@ -131,22 +131,22 @@ FWHMr_line_n, FWHMr_line_n_err = calc_gaussian_fwhm(
 fwhm_corr = np.sqrt(np.maximum(0, FWHMr_line_n**2 - anchura_ins**2))
 print(f'FWHM_n (corrected) = {fwhm_corr:.2f} +/- {FWHMr_line_n_err:.2f} km/s')
 
-# Velocity respecto a wave_rest
+# Velocity with respect to wave_rest
 vel_line_n, vel_line_n_err = calc_vel(
     line_n_fit, Errpars=line_n_fit_err, wave=wave_rest
 )
 print(f'Velocity_n = {vel_line_n:.2f} +/- {vel_line_n_err:.2f} km/s')
 
-#Integrated flux(area under the gaussian in  ADU * Å)
+# Integrated flux(area under the gaussian in  ADU * Å)
 flux_line_n, fluxr_line_n_err = calc_gaussian_flux(
     line_n_fit, flux_norm=flux_norm, Errpars=line_n_fit_err
 )
 print(f'Flux_n = {flux_line_n:.2f} +/- {fluxr_line_n_err:.2f} ADU*Å')
 
-#GRAPHICS
+# GRAPHICS
 plt.figure(figsize=(8, 5))
 
-#Observed spectrum
+# Observed spectrum
 plt.step(
     wave_reg, 
     flux_reg_nocont + cont_reg_model, 
@@ -165,7 +165,7 @@ plt.plot(
     alpha=0.9
 )
 
-#Total model
+# Total model
 plt.plot(
     wave_reg, 
     curmod + cont_reg_model, 
@@ -175,14 +175,14 @@ plt.plot(
 )
 
 # Residuals
-#offset_resid = 10.0
+# offset_resid = 10.0
 #plt.step(
  #   wave_reg, 
   #  (flux_reg_nocont - curmod) + offset_resid, 
    # label='Resid.', 
     #color='sienna'
 #)
-#CONTINUUM
+# CONTINUUM
 plt.plot(
     wave_reg, 
     poly_cont(wave_reg), 
@@ -227,7 +227,7 @@ flux_line_n, fluxr_line_n_err = calc_gaussian_flux(
     line_n_fit, flux_norm=flux_norm, Errpars=line_n_fit_err
 )
 
-#Parameters of the continuum
+# Parameters of the continuum
 if hasattr(poly_cont, 'parameters'):
     params = poly_cont.parameters
     c0_fit = params[0] if len(params) > 0 else 0.0
