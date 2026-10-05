@@ -82,7 +82,7 @@ for i, (col, ax) in enumerate(zip(parameter, axes)):
     ax.plot( ascend_dict['time'], ascend_dict[col], label=f"{i}, {parameter}", color='m')
     ax.set_xlabel('time (s)')
     ax.set_ylabel(f"{col} ({unit})")
-   # ax.set_title(??????)
+    ax.set_title(f"{col} vs time")
 # Hide the empty 12th subplot
 fig.delaxes(axes[11])
 
