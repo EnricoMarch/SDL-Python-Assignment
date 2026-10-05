@@ -94,14 +94,6 @@ plt.show()
 
 # Install geodatasets and geopandas to plot
 # the map of the globe if not previously installed
-# pip install geodatasets
-# pip install geopandas
-
-import matplotlib.patches as mpatches
-import matplotlib.pyplot as plt
-import seaborn as sns
-import geodatasets
-import geopandas as gpd
 
 # Import the data for the globe plot
 path = geodatasets.get_path("naturalearth.land")
