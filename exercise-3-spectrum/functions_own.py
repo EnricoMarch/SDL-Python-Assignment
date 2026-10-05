@@ -2,22 +2,22 @@ import numpy as np
 from numpy import random as rnd
 from astropy.modeling import models, fitting
 
-#función q calcula continuo
-def ajuste_continuo (wl1, wl2, wl3, wl4, lam_um, flambda): #lam_um (longitud de onda en micrometros, flambda (flujo en cambio de unidades erg))
+#It calculates the continuum
+def ajuste_continuo (wl1, wl2, wl3, wl4, lam_um, flambda):
         mask_cont = (
             ((lam_um >= wl1) & (lam_um <= wl2)) |
             ((lam_um >= wl3) & (lam_um <= wl4)) )
-        # Ajustamos
+        #We fitt them usisng the mask
         lam_cont = lam_um[mask_cont]
         flux_cont = flambda[mask_cont]
-        #polinomios
+        #polinomials
         linfitter = fitting.LinearLSQFitter()
         poly_cont = linfitter(models.Polynomial1D(1), lam_cont, flux_cont)
-        #Restamos
-        flux_nocont = flambda - poly_cont(lam_um)
+        #we substract it
+        flux_nocont = flambda - poly_cont(lam_um) #flux with no continuum
         return flux_nocont, lam_cont, flux_cont, poly_cont
 
-#función cálculo gaussiana
+#To calculate the gaussian 
 import numpy as np
 from lmfit import Parameters, minimize
 
@@ -60,7 +60,7 @@ def fit_gaussian_minimize(wave, flux, flux_err,
     params.add('flux', value=flux_init, min=0)
     
 
-    # --------- minimización ---------
+    #minimizing
     result = minimize(residual, params, args=(wave, flux, flux_err))
 
     return result
